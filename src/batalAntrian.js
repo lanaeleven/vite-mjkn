@@ -1,11 +1,11 @@
 // PASIEN SUDAH CHECK IN & LEWAT HARI ANTRIAN BELUM ADA
 // import { createHmac, createDecipheriv, createHash } from "crypto";
 // import fetch from "node-fetch";
-import { LZString } from 'lz-string';
 // import LZString from "lz-string";
 // import fetch from "node-fetch";
-import CryptoJS from 'crypto-js';
 // import  fetch  from 'node-fetch';
+import CryptoJS from 'crypto-js';
+import { LZString } from 'lz-string';
 import axios from 'axios';
 
 // const bookingId = "250205HR9Y89"; // diisi nomor booking yang akan dibatalkan
@@ -31,20 +31,39 @@ async function postData() {
 
     const url = "https://apijkn.bpjs-kesehatan.go.id/antreanrs/antrean/batal";
 
-    let valueRequest = {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json;charset=UTF-8",
-            "X-cons-id": consid,
-            "X-Timestamp": timestamp,
-            "X-Signature": signature,
-            User_Key: "63e8b4496f7c6d94ecb570179aea3cf0",
-        },
-        body: JSON.stringify({
+    // let valueRequest = {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-type": "application/json;charset=UTF-8",
+    //         "X-cons-id": consid,
+    //         "X-Timestamp": timestamp,
+    //         "X-Signature": signature,
+    //         User_Key: "63e8b4496f7c6d94ecb570179aea3cf0",
+    //     },
+    //     body: JSON.stringify({
+    //         kodebooking: bookingId,
+    //         keterangan: "Batal",
+    //     }),
+    // };
+
+
+    try {
+        const response = await axios.post(url, {
             kodebooking: bookingId,
             keterangan: "Batal",
-        }),
-    };
+        }, {
+            headers: {
+                "Content-type": "application/json;charset=UTF-8",
+                "X-cons-id": consid,
+                "X-Timestamp": timestamp,
+                "X-Signature": signature,
+                "User_Key": "63e8b4496f7c6d94ecb570179aea3cf0",
+            },
+        });
+        console.log("Response:", response.data);
+    } catch (error) {
+        console.error("Error:", error.response ? error.response.data : error.message);
+    }
 
     // let response = await fetch(url, valueRequest);
     let json = await response.json();
@@ -76,4 +95,4 @@ function decrypt(encrypted, passphrase) {
     return decrypted.toString("utf8");
 }
 
-export {postData}
+export { postData }
