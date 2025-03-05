@@ -5,7 +5,8 @@ import { LZString } from 'lz-string';
 // import LZString from "lz-string";
 // import fetch from "node-fetch";
 import CryptoJS from 'crypto-js';
-import  fetch  from 'node-fetch';
+// import  fetch  from 'node-fetch';
+import axios from 'axios';
 
 // const bookingId = "250205HR9Y89"; // diisi nomor booking yang akan dibatalkan
 
@@ -45,7 +46,7 @@ async function postData() {
         }),
     };
 
-    let response = await fetch(url, valueRequest);
+    // let response = await fetch(url, valueRequest);
     let json = await response.json();
     console.log("Response :" + JSON.stringify(json));
 
