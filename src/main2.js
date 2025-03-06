@@ -1,11 +1,25 @@
-import './style.css'
-import { postData } from './batalAntrian.js'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import "./style.css";
+// import { postData } from "./batalAntrian.js";
+import javascriptLogo from "./javascript.svg";
+import viteLogo from "/vite.svg";
+import { setupCounter } from "./counter.js";
+import axios from "axios";
 
+async function postData(bookingId) {
+    try {
+      const response = await axios.post("http://localhost:5000/proxy/batal", {
+        bookingId,
+      });
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  }
 
-document.querySelector('#app').innerHTML = `
+document.querySelector("#app").innerHTML = `
             <img
                 src="/images/banner.png"
                 alt="RSI Sultan Agung Banjarbaru"
@@ -95,11 +109,14 @@ document.querySelector('#app').innerHTML = `
 
         <!-- <script type="module">
             import {batalAntrianWeb} from "./batalAntrianWeb.js";
-            document.getElementById("bookingButton").addEventListener("click", batalAntrianWeb);
-        </script> -->
-
-`
+            </script> -->
+            
+            `;
 
 // setupCounter(document.querySelector('#counter'))
-postData(document.querySelector('#bookingId'));
-
+// postData(document.querySelector('#bookingId'));
+document
+  .getElementById("bookingButton")
+  .addEventListener("click", () =>
+    postData(document.querySelector("#bookingId").value)
+  );
