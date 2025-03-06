@@ -22,7 +22,7 @@ async function postData(bookingId) {
 document.querySelector("#app").innerHTML = `
             <img
                 src="/images/banner.png"
-                alt="RSI Sultan Agung Banjarbaru"
+                alt="RSI Sultan Agung Banjarbaruu"
                 class="rounded mx-auto d-block mb-3 mt-5" />
             <div class="border shadow-sm rounded">
                 <div class="p-3">
